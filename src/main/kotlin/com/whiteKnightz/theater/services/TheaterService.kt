@@ -33,7 +33,7 @@ class TheaterService {
 
         for (row in 1..15) {
             for (num in 1..36) {
-                hiddenSeats.add(Seat((row+64).toChar(), num, getPrice(row, num), getDescription(row, num)))
+                hiddenSeats.add(Seat(0, (row+64).toChar(), num, getPrice(row, num), getDescription(row, num)))
             }
         }
     }
@@ -42,7 +42,7 @@ class TheaterService {
         get() = hiddenSeats.toList()
 
     fun find(num: Int, row: Char): Seat?{
-        return seats.filter { it.row == row && it.num == num }.first()
+        return seats.filter { it.rowVal == row && it.num == num }.first()
     }
 
 }

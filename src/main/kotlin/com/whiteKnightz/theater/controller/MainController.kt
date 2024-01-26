@@ -1,5 +1,6 @@
 package com.whiteKnightz.theater.controller
 
+import com.whiteKnightz.theater.repositories.SeatRepository
 import com.whiteKnightz.theater.services.BookingService
 import com.whiteKnightz.theater.services.TheaterService
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,8 +20,11 @@ class MainController {
     @Autowired
     lateinit var bookingService: BookingService
 
+    @Autowired
+    lateinit var seatRepository: SeatRepository
+
     @RequestMapping("")
-    fun helloWorld(): ModelAndView = ModelAndView("seatBooking", "bean", CheckAvailabilityBackingBean())
+    fun homePage(): ModelAndView = ModelAndView("seatBooking", "bean", CheckAvailabilityBackingBean())
 
     @RequestMapping(value = arrayOf("checkAvailability"), method = arrayOf(RequestMethod.POST))
     fun checkAvailability(bean: CheckAvailabilityBackingBean): ModelAndView {
@@ -29,4 +33,11 @@ class MainController {
         bean.result = "Seat $selectedSeat is " + if (seatFree) "Available" else "Booked"
         return ModelAndView("seatBooking", "bean", bean)
     }
+
+//    @RequestMapping(value = arrayOf("bootstrap"))
+//    fun createInitialData(): ModelAndView {
+//        val seats = theaterService.seats
+//        seatRepository.saveAll(seats)
+//        return homePage()
+//    }
 }
